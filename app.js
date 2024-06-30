@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyparse = require('body-parser');
 const auth = require('./routes/authRoute')
-
+const UserRoute = require('./routes/userRoute')
 
 const app = express();
 const url="mongodb://127.0.0.1:27017/ProjectServer"
@@ -17,6 +17,7 @@ app.use(bodyparse.urlencoded({extended:true}));
 
 
 app.use('/auth', auth)
+app.use('/user', UserRoute)
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
