@@ -21,6 +21,7 @@ auth.post('/signup', async (req, res) => {
             password: req.body.password,
             email: req.body.email,
             phone: req.body.phone,
+            isAcceptMarketing: req.body.isAcceptMarketing ? req.body.isAcceptMarketing : false,
         })
         const existUser = await User.findOne({ email: user.email })
 
@@ -59,7 +60,7 @@ auth.post('/login', async (req, res) => {
 
         // Tạo token JWT
         const token = jwt.sign({ id: finduser.userId }, config.secretKey, { expiresIn: '1h' });
-        res.send({ token: token });
+        res.send({ token: token ,userId: finduser.userId});
     } catch (error) {
         res.status(500).json({ err: error });
     }

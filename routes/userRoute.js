@@ -13,7 +13,7 @@ UserRoute.get('/', authenticate.verify, async(req,res)=>{
     res.status(200).json(users);
 })
 
-UserRoute.get('/:userId', authenticate.verify, async (req, res) => {
+UserRoute.get('/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const user = await User.findOne({ userId: userId });

@@ -78,10 +78,6 @@ const userSchema = new Schema({
     type: String,
     default: null
   },
-  notes: {
-    type: String,
-    default: null
-  },
   lastName: {
     type: String,
     default: null
@@ -159,14 +155,99 @@ const userSchema = new Schema({
     type: String,
     default: 'Enabled'
   },
-  tags: {
-    type: String,
-    default: null
-  },
   debt: {
     type: Number,
     default: 0.0
   },
+  following: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      profileName: {
+        type: String,
+        required: true
+      },
+      username: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  followers: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      profileName: {
+        type: String,
+        required: true
+      },
+      username: {
+        type: String,
+        required: true
+      },
+      isFollow: {
+        type: Boolean,
+        required: true
+      }
+    }
+  ],
+  productTags: [
+    {
+      productId: {
+        type: Schema.Types.ObjectId,
+        auto: true,
+        unique: true
+      },
+      productName: {
+        type: String,
+        required: true
+      },
+      price: {
+        type: Number,
+        required: true
+      },
+      urlImage: {
+        type: String,
+        required: true
+      },
+      posts: [
+        {
+          postId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Post',
+            auto: true,
+            unique: true
+          },
+          title: {
+            type: String,
+            required: true
+          },
+          content: {
+            type: String,
+            required: true
+          },
+          likeNumber: {
+            type: Number,
+            required: true
+          },
+          mediaUrl: {
+            type: String,
+            required: true
+          },
+          type: {
+            type: String,
+            required: true
+          }
+        }
+      ]
+    }
+  ],
   resetPasswordToken: { type: String, default: null },
   resetPasswordExpires: { type: Date, default: null },
   isOtpVerified: {
