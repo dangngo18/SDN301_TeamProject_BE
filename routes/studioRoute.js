@@ -47,6 +47,17 @@ studioRoute.get('/posts/:id',authenticate.verify, async (req, res) => {
         console.log(err)
         res.status(500).send({ message: 'Server error', error: err });
     }
+}).put('/posts/archive/:id', authenticate.verify, async (req, res) => {
+    try {
+        const post = await Post.findOne({ postId: req.params.id });
+        if (!post) return res.status(404).json({ message: 'No post found' });
+        post.isVisible = req.body.isVisible;
+        await post.save();
+        res.status(200).send('success.');
+    } catch (err) {
+        console.log(err)
+        res.status(500).send({ message: 'Server error', error: err });
+    }
 })
 studioRoute.post('/upload', authenticate.verify, async (req, res) => {
     try {

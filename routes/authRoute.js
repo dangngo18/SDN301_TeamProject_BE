@@ -59,7 +59,7 @@ auth.post('/login', async (req, res) => {
         }
 
         // Tạo token JWT
-        const token = jwt.sign({ id: finduser.userId }, config.secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: finduser.userId }, config.secretKey, { expiresIn: '4h' });
         res.send({ token: token ,userId: finduser.userId});
     } catch (error) {
         res.status(500).json({ err: error });
