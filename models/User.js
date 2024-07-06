@@ -12,6 +12,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  profileName: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true
@@ -20,6 +24,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true
+  },
+  urlImage:{
+    type: String,
+    default: ""
   },
   phone: {
     type: String,

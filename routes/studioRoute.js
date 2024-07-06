@@ -40,6 +40,7 @@ studioRoute.get('/posts/:id',authenticate.verify, async (req, res) => {
         post.productTags = req.body.productTags
         post.image = req.body.image
         post.urlVideo = req.body.image.length > 0 ?  null : req.body.urlVideo
+        post.updatedDate = Date.now();
 
         await post.save();
         res.status(200).send('success.');
