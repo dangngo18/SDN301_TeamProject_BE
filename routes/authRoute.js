@@ -3,9 +3,9 @@ const User = require('../models/User')
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const authenticate = require('../authenticate/auth');
-const config = require('../config');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+require('dotenv').config()
 
 
 const auth = express.Router();//định dạng router
@@ -18,10 +18,11 @@ auth.post('/signup', async (req, res) => {
     try {
         const user = new User({
             username: req.body.username,
-            password: req.body.password,
+            profileName: req.body.profileName,
             email: req.body.email,
             phone: req.body.phone,
             isAcceptMarketing: req.body.isAcceptMarketing ? req.body.isAcceptMarketing : false,
+            password: req.body.password
         })
         const existUser = await User.findOne({ email: user.email })
 
@@ -59,7 +60,7 @@ auth.post('/login', async (req, res) => {
         }
 
         // Tạo token JWT
-        const token = jwt.sign({ id: finduser.userId }, config.secretKey, { expiresIn: '4h' });
+        const token = jwt.sign({ id: finduser.userId }, process.env.SECRET_KEY, { expiresIn: '4h' });
         res.send({ token: token ,userId: finduser.userId});
     } catch (error) {
         res.status(500).json({ err: error });
@@ -77,7 +78,7 @@ auth.post('/requestResetPassword', async (req, res) => {
         }
 
         const otp = crypto.randomInt(100000, 1000000);
-        const resetToken = jwt.sign({ email: email, otp: otp }, config.secretKey, { expiresIn: '1h' });
+        const resetToken = jwt.sign({ email: email, otp: otp }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
         user.resetPasswordToken = resetToken;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
@@ -103,7 +104,7 @@ auth.post('/otp', async (req, res) => {
             return res.status(400).send('Invalid or expired OTP.');
         }
 
-        const decoded = jwt.verify(user.resetPasswordToken, config.secretKey);
+        const decoded = jwt.verify(user.resetPasswordToken, process.env.SECRET_KEY);
         if (decoded.otp.toString() !== otp.toString()) {
             return res.status(400).send('Invalid OTP.');
         }

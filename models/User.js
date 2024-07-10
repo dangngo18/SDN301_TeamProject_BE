@@ -25,9 +25,13 @@ const userSchema = new Schema({
     required: true,
     unique: true
   },
-  urlImage:{
+  urlImage: {
     type: String,
-    default: ""
+    default: "https://i.ibb.co/chpHF6x/No-Image-User.png"
+  },
+  bio: {
+    type: String,
+    default: "",
   },
   phone: {
     type: String,
@@ -178,9 +182,17 @@ const userSchema = new Schema({
         type: String,
         required: true
       },
+      urlImage: {
+        type: String,
+        required: true
+      },
       username: {
         type: String,
         required: true
+      },
+      isFollow: {
+        type: Boolean,
+        default: true
       }
     }
   ],
@@ -195,6 +207,10 @@ const userSchema = new Schema({
         type: String,
         required: true
       },
+      urlImage: {
+        type: String,
+        required: true
+      },
       username: {
         type: String,
         required: true
@@ -205,55 +221,75 @@ const userSchema = new Schema({
       }
     }
   ],
-  productTags: [
-    {
-      productId: {
-        type: Schema.Types.ObjectId,
-        auto: true,
-        unique: true
-      },
-      productName: {
-        type: String,
-        required: true
-      },
-      price: {
-        type: Number,
-        required: true
-      },
-      urlImage: {
-        type: String,
-        required: true
-      },
-      posts: [
-        {
-          postId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Post',
-            auto: true,
-            unique: true
-          },
-          title: {
-            type: String,
-            required: true
-          },
-          content: {
-            type: String,
-            required: true
-          },
-          likeNumber: {
-            type: Number,
-            required: true
-          },
-          mediaUrl: {
-            type: String,
-            required: true
-          },
-          type: {
-            type: String,
-            required: true
+  productTags: {
+    type: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true
+        },
+        productName: {
+          type: String,
+          required: true
+        },
+        price: {
+          type: Number,
+          required: true
+        },
+        urlImage: {
+          type: String,
+          required: true
+        },
+        posts: [
+          {
+            postId: {
+              type: Schema.Types.ObjectId,
+              ref: 'Post',
+              required: true
+            },
+            title: {
+              type: String,
+              required: true
+            },
+            content: {
+              type: String,
+              required: true
+            },
+            likeNumber: {
+              type: Number,
+              required: true
+            },
+            mediaUrl: {
+              type: String,
+              required: true
+            },
+            type: {
+              type: String,
+              required: true
+            }
           }
-        }
-      ]
+        ]
+      }
+    ],
+    default: []
+  },
+  usernameChangeHistory: [
+    {
+      newUsername: String,
+      changedAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+  profileNameChangeHistory: [
+    {
+      newProfileName: String,
+      changedAt: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   resetPasswordToken: { type: String, default: null },

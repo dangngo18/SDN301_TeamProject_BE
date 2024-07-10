@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const config = require('../config')
+require('dotenv').config();
 
 const verify = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
         if (!token) {
-            throw new Error('Unauthorized');
+            res.status(401).send('Unauthorized');
         }
-        const decoded = jwt.verify(token, config.secretKey);
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
         const user = await User.findOne({ userId: decoded.id });
         if (!user) {
             throw new Error('User not found');
