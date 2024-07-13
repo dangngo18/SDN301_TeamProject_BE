@@ -44,7 +44,7 @@ funcRouter.post('/api/validate-profile-name', async (req, res) => {
     const user = await User.findOne({userId: userId});
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    const recentChange = user.profileNameChangeHistory.find(change => new Date(change.changedAt) > sevenDaysAgo);
+    const recentChange = user.profileNameChangeHistory.find(history => new Date(history.changedAt) > sevenDaysAgo);
 
     if (recentChange) {
         return res.status(400).json({ message: 'you got over profile name changes' });

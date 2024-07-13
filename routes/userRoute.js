@@ -100,7 +100,7 @@ UserRoute.put('/func/follow', authenticate.verify, async (req, res) => {
                 profileName: thisUser.profileName,
                 username: thisUser.username,
                 urlImage: thisUser.urlImage,
-                isFollow: targetUser.followers.includes(userId)
+                isFollow: targetUser.followers.some((user) => user.userId === userId)
             };
 
             if (!thisUser.following.some(user => user.userId === otherUserId)) {

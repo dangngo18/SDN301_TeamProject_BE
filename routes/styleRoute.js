@@ -10,7 +10,7 @@ const styleRoute = router;
 styleRoute.use(bodyparse.json());
 styleRoute.get('/posts/story/', async (req, res) => {
     try {
-        const posts = await Post.find({}).sort({ updatedDate: -1 }).limit(6);
+        const posts = await Post.find({isVisible: true}).sort({ updatedDate: -1 }).limit(6);
         if (!posts || posts.length === 0) {
             return res.status(404).json({ message: 'No posts found' });
         } else {
@@ -35,7 +35,7 @@ styleRoute.get('/posts/story/', async (req, res) => {
 });
 styleRoute.get('/posts/all', async (req, res) => {
     try {
-        const posts = await Post.find({}).sort({ createdDate: -1 });
+        const posts = await Post.find({isVisible: true}).sort({ createdDate: -1 });
         if (!posts || posts.length === 0) {
             return res.status(200).json({ message: 'No posts found' });
         } else {
