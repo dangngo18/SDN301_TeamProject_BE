@@ -30,11 +30,11 @@ const PostSchema = new Schema({
   },
   blogTitle: {
     type: String,
-    default:'null'
+    default: 'null'
   },
   blogHandleUrl: {
     type: String,
-    default:'null'
+    default: 'null'
   },
   blogCommentRule: {
     type: Number,
@@ -68,7 +68,7 @@ const PostSchema = new Schema({
       },
       productName: {
         type: String,
-        default:'null'
+        default: 'null'
       },
       price: {
         type: Number,
@@ -76,7 +76,7 @@ const PostSchema = new Schema({
       },
       urlImage: {
         type: String,
-        default:'null'
+        default: 'null'
       }
     }
   ],
@@ -103,7 +103,7 @@ const PostSchema = new Schema({
       },
       isFollowed: {
         type: Boolean,
-        default:false
+        default: false
       }
     }
   ],
@@ -123,15 +123,15 @@ const PostSchema = new Schema({
     {
       alt: {
         type: String,
-        default:'null'
+        default: 'null'
       },
       urlImage: {
         type: String,
         default: 'null'
       },
-      aspect:{
+      aspect: {
         type: String,
-        default:'vertical'
+        default: 'vertical'
       }
     }
   ],
@@ -141,7 +141,7 @@ const PostSchema = new Schema({
   },
   urlHandle: {
     type: String,
-    default:'null'
+    default: 'null'
   },
   isVisible: {
     type: Boolean,
@@ -153,11 +153,11 @@ const PostSchema = new Schema({
   },
   metaRobotsFollow: {
     type: String,
-    default:'null'
+    default: 'null'
   },
   metaRobotsIndex: {
     type: String,
-    default:'null'
+    default: 'null'
   }
 });
 
