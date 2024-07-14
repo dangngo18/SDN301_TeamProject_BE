@@ -99,6 +99,31 @@ const styleController = {
             console.log(err)
             res.status(500).send({ message: 'Server error', error: err });
         }
+    },
+    getUpdateLike: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const user = req.user;
+            const post = await Post.findOne({ postId: id });
+            if (post.likeList.some((liker) => String(liker.userId) === String(user.userId))) {
+                post.likeList = post.likeList.filter((liker) => String(liker.userId) !== String(user.userId));
+                await post.save();
+                return res.status(200).json({ message: 'Unlike successfully' });
+            } else {
+                const newUser = {
+                    userId: user.userId,
+                    username: user.username,
+                    profileName: user.profileName,
+                    isFollowed: user.following.some((followed) => String(followed.userId) === String(post.userId))
+                }
+                post.likeList.push(newUser);
+                await post.save();
+                return res.status(200).json({ message: 'Like successfully' });
+            }
+
+        } catch (err) {
+            return res.status(500).send({ message: 'Server error', error: err });
+        }
     }
 }
 module.exports = styleController

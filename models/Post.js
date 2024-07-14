@@ -101,6 +101,10 @@ const PostSchema = new Schema({
         type: String,
         required: true
       },
+      profileName:{
+        type:String,
+        required:true
+      },
       isFollowed: {
         type: Boolean,
         default: false
