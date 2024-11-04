@@ -86,8 +86,23 @@ const PostSchema = new Schema({
   },
   commentList: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Comment'
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
+      username: {
+        type: String,
+        required: true
+      },
+      comment: {
+        type: String,
+        required: true
+      },
+      createdDate: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   likeList: [
@@ -101,9 +116,9 @@ const PostSchema = new Schema({
         type: String,
         required: true
       },
-      profileName:{
-        type:String,
-        required:true
+      profileName: {
+        type: String,
+        required: true
       },
       isFollowed: {
         type: Boolean,

@@ -11,6 +11,7 @@ UserRoute.get('/session', userController.getUserSession);
 UserRoute.put('/profile/edit/:userId', authenticate.verify, userController.getEditProfile)
 UserRoute.get('/:userId', userController.getUserDetail);
 UserRoute.put('/func/follow', authenticate.verify, userController.getFollowUser);
+// UserRoute.put('/func/save-post/:postId', authenticate.verify, userController.handleSavePost);
 
 
 

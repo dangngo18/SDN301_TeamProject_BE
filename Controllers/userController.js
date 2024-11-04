@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken');
 const Mongoose = require('mongoose');
+const Post = require('../models/Post');
 const userController = {
     getAllUsers: async (req, res) => {
         const users = await User.find({});
@@ -125,6 +126,6 @@ const userController = {
         } catch (err) {
             res.status(500).send({ message: 'Server error', error: err.message });
         }
-    }
+    },
 }
 module.exports = userController;
