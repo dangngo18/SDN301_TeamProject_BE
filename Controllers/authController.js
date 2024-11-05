@@ -50,7 +50,7 @@ const authController = {
             }
 
             // Tạo token JWT
-            const token = jwt.sign({ id: finduser.userId }, process.env.SECRET_KEY, { expiresIn: '3h' });
+            const token = jwt.sign({ id: finduser.userId }, process.env.SECRET_KEY, { expiresIn: '3d' });
             res.send({ token: token, userId: finduser.userId });
         } catch (error) {
             res.status(500).json({ err: error });
